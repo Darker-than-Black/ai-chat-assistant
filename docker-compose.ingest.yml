@@ -1,0 +1,21 @@
+services:
+  mariadb:
+    image: mariadb:10.3.15
+    container_name: local-prozorro-db
+    restart: unless-stopped
+    command:
+      - --character-set-server=utf8mb4
+      - --collation-server=utf8mb4_unicode_ci
+    environment:
+      MYSQL_DATABASE: prozorro
+      MYSQL_USER: prozorro
+      MYSQL_PASSWORD: prozorro
+      MYSQL_ROOT_PASSWORD: root
+    ports:
+      - "3306:3306"
+    volumes:
+      - mariadb_data:/var/lib/mysql
+      - ./prozorro_backup.sql:/docker-entrypoint-initdb.d/01-prozorro_backup.sql:ro
+
+volumes:
+  mariadb_data:

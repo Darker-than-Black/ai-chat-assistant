@@ -1,0 +1,152 @@
+[
+  {
+    "id": "happy-001",
+    "category": "happy_path",
+    "input": "Який штраф передбачає стаття 164-14 КУпАП за порушення законодавства про закупівлі?",
+    "language": "uk",
+    "expected_topics": ["legal"],
+    "expected_output": "За статтею 164-14 КУпАП штраф для посадових осіб становить від 1500 до 3000 неоподатковуваних мінімумів доходів громадян.",
+    "expected_sources_doc_ids": ["kupap-164-14"],
+    "should_escalate": false
+  },
+  {
+    "id": "happy-002",
+    "category": "happy_path",
+    "input": "Що таке тендерна документація і які вимоги до неї за Законом 922?",
+    "language": "uk",
+    "expected_topics": ["legal"],
+    "expected_output": "Тендерна документація — це документ, що розробляється замовником і містить вимоги до предмета закупівлі та учасників. Закон 922 (стаття 22) встановлює мінімальний перелік відомостей у тендерній документації.",
+    "expected_sources_doc_ids": ["zakon-922-st-22"],
+    "should_escalate": false
+  },
+  {
+    "id": "happy-003",
+    "category": "happy_path",
+    "input": "Як учаснику завантажити тендерну пропозицію в систему Prozorro?",
+    "language": "uk",
+    "expected_topics": ["technical_system"],
+    "expected_output": "Учасник входить до особистого кабінету на майданчику, обирає процедуру, заповнює форму пропозиції, додає документи, підписує їх КЕП і натискає «Подати пропозицію» до закінчення строку прийому.",
+    "expected_sources_doc_ids": ["infobox-bid-submission"],
+    "should_escalate": false
+  },
+  {
+    "id": "happy-004",
+    "category": "happy_path",
+    "input": "Чим відкриті торги відрізняються від спрощеної закупівлі?",
+    "language": "uk",
+    "expected_topics": ["procurement_general"],
+    "expected_output": "Відкриті торги — основна конкурентна процедура з мінімальним строком оголошення 15 днів. Спрощена закупівля застосовується для нижчих порогів і має скорочені строки. Відрізняються пороговими сумами, обовʼязковістю електронного аукціону та строками оприлюднення.",
+    "expected_sources_doc_ids": ["infobox-procedures-overview"],
+    "should_escalate": false
+  },
+  {
+    "id": "happy-005",
+    "category": "happy_path",
+    "input": "Поясни статтю 17 Закону 922 і як подати скаргу до АМКУ через систему.",
+    "language": "uk",
+    "expected_topics": ["legal", "technical_system"],
+    "expected_output": "Стаття 17 Закону 922 встановлює підстави для відмови учаснику в участі (корупційні правопорушення, заборгованість зі сплати податків тощо). Скарга до АМКУ подається через ЕСЗ: розділ «Скарги» → «Нова скарга» → форма + документи + КЕП → надіслати.",
+    "expected_sources_doc_ids": ["zakon-922-st-17", "infobox-amku-complaint"],
+    "should_escalate": false
+  },
+  {
+    "id": "edge-001",
+    "category": "edge_case",
+    "input": "Які зміни до Закону про публічні закупівлі набули чинності в 2024 році?",
+    "language": "uk",
+    "expected_topics": ["legal", "procurement_general"],
+    "expected_output": "Найбільші зміни 2024 року стосуються антикорупційних обмежень для постачальників і вимог щодо локалізації. Точний перелік норм слід звіряти з актуальною редакцією Закону 922.",
+    "expected_sources_doc_ids": ["zakon-922-current"],
+    "should_escalate": false
+  },
+  {
+    "id": "edge-002",
+    "category": "edge_case",
+    "input": "Чи можна подати тендерну пропозицію без КЕП, якщо особа є представником іноземного учасника?",
+    "language": "uk",
+    "expected_topics": ["legal", "technical_system"],
+    "expected_output": "Закон 922 (стаття 12) і регламент ЕСЗ вимагають накладення електронного підпису. Іноземні учасники можуть використовувати кваліфіковані електронні підписи країн, з якими у України укладено відповідні угоди про взаємне визнання, або отримати український КЕП у акредитованого ЦСК.",
+    "expected_sources_doc_ids": ["zakon-922-st-12", "infobox-foreign-kep"],
+    "should_escalate": false
+  },
+  {
+    "id": "edge-003",
+    "category": "edge_case",
+    "input": "Як замовник може уточнити умови закупівлі після оголошення про тендер?",
+    "language": "uk",
+    "expected_topics": ["procurement_general", "legal"],
+    "expected_output": "Замовник може вносити зміни до тендерної документації шляхом публікації змін у ЕСЗ; строк прийому пропозицій після цього продовжується щонайменше на 7 днів. Уточнення на запитання учасників публікуються у форматі «розʼяснення» без зміни суті документації.",
+    "expected_sources_doc_ids": ["zakon-922-st-23", "infobox-clarifications"],
+    "should_escalate": false
+  },
+  {
+    "id": "edge-004",
+    "category": "edge_case",
+    "input": "Що робити, якщо переможець торгів не уклав договір протягом встановленого строку?",
+    "language": "uk",
+    "expected_topics": ["legal", "procurement_general"],
+    "expected_output": "У такому разі переможець визнається таким, що відмовився від укладення договору. Замовник укладає договір з учасником, що зайняв друге місце, або скасовує закупівлю. Переможець вноситься до реєстру учасників, що ухилилися від укладення договору (стаття 33 Закону 922).",
+    "expected_sources_doc_ids": ["zakon-922-st-33"],
+    "should_escalate": false
+  },
+  {
+    "id": "edge-005",
+    "category": "edge_case",
+    "input": "Які документи треба подати замовнику для перевірки кваліфікації учасника?",
+    "language": "uk",
+    "expected_topics": ["procurement_general", "legal"],
+    "expected_output": "Перелік встановлюється тендерною документацією і включає документи про відповідність кваліфікаційним критеріям (досвід, фінансова спроможність, наявність матеріально-технічної бази, працівників), а також підтвердження відсутності підстав для відмови за статтею 17 Закону 922.",
+    "expected_sources_doc_ids": ["zakon-922-st-16", "zakon-922-st-17"],
+    "should_escalate": false
+  },
+  {
+    "id": "fail-001",
+    "category": "off_topic",
+    "input": "Який холодильник краще купити для дому?",
+    "language": "uk",
+    "expected_topics": [],
+    "expected_output": "Запит виходить за межі компетенції системи. Асистент відповідає лише на питання щодо публічних закупівель України, Prozorro і профільного законодавства.",
+    "expected_sources_doc_ids": [],
+    "should_escalate": false
+  },
+  {
+    "id": "fail-002",
+    "category": "off_topic",
+    "input": "Поясни правила гри в шахи.",
+    "language": "uk",
+    "expected_topics": [],
+    "expected_output": "Запит поза предметною областю. Асистент надає підтримку виключно з питань публічних закупівель і роботи в системі Prozorro.",
+    "expected_sources_doc_ids": [],
+    "should_escalate": false
+  },
+  {
+    "id": "fail-003",
+    "category": "escalation",
+    "input": "Після підписання КЕП система Prozorro повертає помилку 500 при поданні пропозиції — це другий день поспіль.",
+    "language": "uk",
+    "expected_topics": ["technical_system"],
+    "expected_output": "Запит передано оператору технічної підтримки для перевірки інциденту.",
+    "expected_sources_doc_ids": [],
+    "should_escalate": true
+  },
+  {
+    "id": "fail-004",
+    "category": "escalation",
+    "input": "Потрібен висновок щодо унікального судового спору між замовником і учасником щодо неустойки за договором.",
+    "language": "uk",
+    "expected_topics": ["legal"],
+    "expected_output": "Запит передано експерту: ситуація потребує юридичної оцінки конкретних обставин справи.",
+    "expected_sources_doc_ids": [],
+    "should_escalate": true
+  },
+  {
+    "id": "fail-005",
+    "category": "escalation",
+    "input": "Не можу знайти кнопку «Скасувати лот» у новому інтерфейсі майданчика — це функція ще не реалізована?",
+    "language": "uk",
+    "expected_topics": ["technical_system"],
+    "expected_output": "Запит передано оператору: ймовірний дефект інтерфейсу або відсутня функція потребує підтвердження від технічної команди.",
+    "expected_sources_doc_ids": [],
+    "should_escalate": true
+  }
+]
