@@ -40,4 +40,7 @@ def healthcheck():
 
 @app.post("/slack/events")
 def slack_events():
+    payload = request.get_json(silent=True) or {}
+    if payload.get("type") == "url_verification" and "challenge" in payload:
+        return payload["challenge"], 200, {"Content-Type": "text/plain; charset=utf-8"}
     return _get_slack_handler().handle(request)
