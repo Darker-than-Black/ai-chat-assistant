@@ -10,8 +10,10 @@ from __future__ import annotations
 from typing import Any
 
 from flask import Flask, jsonify, request
+import logging
 
 app = Flask(__name__)
+logger = logging.getLogger(__name__)
 
 _slack_handler: Any | None = None
 
@@ -41,6 +43,11 @@ def healthcheck():
 @app.post("/slack/events")
 def slack_events():
     payload = request.get_json(silent=True) or {}
+    logger.info(
+        "Slack webhook received type=%s event_type=%s",
+        payload.get("type"),
+        (payload.get("event") or {}).get("type"),
+    )
     if payload.get("type") == "url_verification" and "challenge" in payload:
         return payload["challenge"], 200, {"Content-Type": "text/plain; charset=utf-8"}
     return _get_slack_handler().handle(request)

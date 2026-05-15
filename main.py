@@ -8,6 +8,10 @@ from concurrent.futures import ThreadPoolExecutor
 from contextlib import contextmanager
 from typing import Any, Iterator
 
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)s %(levelname)s %(name)s: %(message)s",
+)
 logger = logging.getLogger(__name__)
 
 from psycopg import Connection
@@ -102,13 +106,19 @@ def _extract_slack_context(body: dict) -> tuple[str, str, str, str | None, str]:
     team_id = body.get("team_id", "unknown_team")
     channel_id = event.get("channel", "")
     user_id = event.get("user", "")
-    thread_ts = event.get("thread_ts") or event.get("ts")
+    thread_ts = event.get("thread_ts")
     text = event.get("text", "")
     clean_text = text.split(">", 1)[-1].strip() if ">" in text else text
     return team_id, channel_id, user_id, thread_ts, clean_text
 
 
 def _post_message(app: App, channel_id: str, thread_ts: str | None, text: str) -> None:
+    logger.info(
+        "Posting Slack message to channel=%s thread_ts=%s text_len=%s",
+        channel_id,
+        thread_ts,
+        len(text),
+    )
     app.client.chat_postMessage(
         channel=channel_id,
         text=text,
@@ -118,8 +128,21 @@ def _post_message(app: App, channel_id: str, thread_ts: str | None, text: str) -
 
 def _process_app_mention(app: App, body: dict) -> None:
     team_id, channel_id, user_id, thread_ts, clean_text = _extract_slack_context(body)
+    logger.info(
+        "Received Slack app_mention team=%s channel=%s user=%s thread_ts=%s text=%r",
+        team_id,
+        channel_id,
+        user_id,
+        thread_ts,
+        clean_text[:200],
+    )
 
     if settings.slack_user_channel_id and channel_id != settings.slack_user_channel_id:
+        logger.info(
+            "Skipping Slack event for channel=%s; allowed channel=%s",
+            channel_id,
+            settings.slack_user_channel_id,
+        )
         return
 
     session_id = make_session_id(team_id, channel_id, user_id, thread_ts)

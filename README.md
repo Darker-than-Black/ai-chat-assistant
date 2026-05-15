@@ -180,6 +180,7 @@ python3 -m ingest.run_ingest --collection=all
    - Build Command: `pip install -r requirements.txt`
    - Start Command: `gunicorn render_app:app --bind 0.0.0.0:$PORT --workers 1 --threads 8 --timeout 180 --access-logfile - --error-logfile - --capture-output`
 5. Додати всі env vars
+   - для free instance на Render варто також додати `ENABLE_RERANKER=false`, інакше локальна HuggingFace-модель reranker часто вибиває процес по пам'яті
 6. У Slack App налаштувати:
    - `Event Subscriptions` -> `Request URL` = `https://<your-service>.onrender.com/slack/events`
    - підписку на `app_mention`

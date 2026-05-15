@@ -135,7 +135,8 @@ def hybrid_search(
     filters: dict | None = None,
     top_k: int | None = None,
 ) -> list[Chunk]:
-    top_k = top_k if top_k is not None else settings.rerank_top_k
+    default_top_k = settings.rerank_top_k if settings.enable_reranker else settings.retrieval_top_k
+    top_k = top_k if top_k is not None else default_top_k
 
     if collection == "laws" and filters is None:
         filters = _extract_article_refs(query)
@@ -159,12 +160,14 @@ def hybrid_search(
         retrievers=[qdrant_ret, bm25_ret],
         weights=[settings.hybrid_semantic_weight, settings.hybrid_bm25_weight],
     )
-    pipeline = ContextualCompressionRetriever(
-        base_compressor=_get_reranker(),
-        base_retriever=ensemble,
-    )
-
-    docs = pipeline.invoke(query)
+    if settings.enable_reranker:
+        pipeline = ContextualCompressionRetriever(
+            base_compressor=_get_reranker(),
+            base_retriever=ensemble,
+        )
+        docs = pipeline.invoke(query)
+    else:
+        docs = ensemble.invoke(query)
 
     return [
         Chunk(
