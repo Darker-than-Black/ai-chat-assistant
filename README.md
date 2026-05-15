@@ -143,7 +143,7 @@ deepeval test run tests/evaluations/
 ### Що вже є в репозиторії
 
 - [`render.yaml`](render.yaml) — базова конфігурація Render Blueprint
-- [`render_app.py`](render_app.py) — WSGI entrypoint для `gunicorn`
+- [`render_app.py`](render_app.py) — мінімальний Flask entrypoint для швидкого старту на Render
 - HTTP endpoint для Slack events: `/slack/events`
 - health check endpoint: `/healthz`
 
@@ -178,7 +178,7 @@ python3 -m ingest.run_ingest --collection=all
 3. Створити в Render `Web Service` з цього репозиторію
 4. Або імпортувати [`render.yaml`](render.yaml), або задати вручну:
    - Build Command: `pip install -r requirements.txt`
-   - Start Command: `gunicorn render_app:app --bind 0.0.0.0:$PORT --workers 1 --threads 8 --timeout 180`
+   - Start Command: `gunicorn render_app:app --bind 0.0.0.0:$PORT --workers 1 --threads 8 --timeout 180 --access-logfile - --error-logfile - --capture-output`
 5. Додати всі env vars
 6. У Slack App налаштувати:
    - `Event Subscriptions` -> `Request URL` = `https://<your-service>.onrender.com/slack/events`
