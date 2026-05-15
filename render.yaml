@@ -1,0 +1,8 @@
+services:
+  - type: web
+    name: prozorro-support-assistant
+    runtime: python
+    plan: starter
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn render_app:app --bind 0.0.0.0:$PORT --workers 1 --threads 8 --timeout 180
+    healthCheckPath: /healthz

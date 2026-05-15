@@ -72,6 +72,9 @@ class Settings(BaseSettings):
     )
     session_ttl_hours: int = 24
 
+    # ── Runtime ───────────────────────────────────────────────────────
+    port: int = 3000
+
     # ── Slack ─────────────────────────────────────────────────────────
     slack_app_token: SecretStr | None = None       # xapp-... required for Socket Mode
     slack_bot_token: SecretStr | None = None
