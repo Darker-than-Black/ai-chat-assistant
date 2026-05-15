@@ -62,6 +62,7 @@ class Settings(BaseSettings):
     hybrid_bm25_weight: float = 0.4
 
     # ── Reranking ─────────────────────────────────────────────────────
+    enable_reranker: bool = True
     reranker_model: str = "BAAI/bge-reranker-base"
     rerank_top_k: int = 5
     rerank_score_threshold: float = 0.3
@@ -71,6 +72,9 @@ class Settings(BaseSettings):
         "postgresql://postgres:postgres@localhost:5432/agent_sessions"
     )
     session_ttl_hours: int = 24
+
+    # ── Runtime ───────────────────────────────────────────────────────
+    port: int = 3000
 
     # ── Slack ─────────────────────────────────────────────────────────
     slack_app_token: SecretStr | None = None       # xapp-... required for Socket Mode
