@@ -1,0 +1,24 @@
+include:
+  - docker-compose.yml
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: procurement-app
+    restart: unless-stopped
+    env_file:
+      - .env
+    environment:
+      QDRANT_URL: http://qdrant:6333
+      POSTGRES_URL: postgresql://postgres:postgres@postgres:5432/agent_sessions
+    depends_on:
+      postgres:
+        condition: service_healthy
+      qdrant:
+        condition: service_started
+    ports:
+      - "3000:3000"
+    command: >
+      sh -c "python scripts/setup_postgres_checkpointer.py && python main.py"
