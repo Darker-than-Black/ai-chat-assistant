@@ -95,7 +95,7 @@ def _get_bm25_retriever(
         docs: list[Document] = []
         for path in _COLLECTION_PATHS.get(collection, []):
             if path.exists():
-                with path.open() as f:
+                with path.open(encoding="utf-8") as f:
                     for line in f:
                         r = json.loads(line)
                         if tag_whitelist:

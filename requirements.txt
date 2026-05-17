@@ -26,6 +26,9 @@ langdetect>=1.0.9
 # HTTP client (Confluence search; transitive dep of langchain-openai)
 httpx>=0.27
 
+# Scraping (data pipeline scripts)
+beautifulsoup4>=4.12
+
 # Slack
 slack-sdk>=3.30
 slack-bolt>=1.20

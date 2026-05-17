@@ -18,7 +18,9 @@ services:
         condition: service_healthy
       qdrant:
         condition: service_started
+    volumes:
+      - ./data:/app/data:ro
     ports:
       - "3000:3000"
     command: >
-      sh -c "python scripts/setup_postgres_checkpointer.py && python main.py"
+      sh -c "python scripts/setup_postgres_checkpointer.py && python scripts/ensure_qdrant_ingested.py && python main.py"

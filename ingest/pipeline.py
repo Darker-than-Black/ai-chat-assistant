@@ -70,7 +70,7 @@ def ingest_collection(collection: Literal["laws", "articles"]) -> dict:
         batch.clear()
 
     for path in paths:
-        with path.open() as f:
+        with path.open(encoding="utf-8") as f:
             for line in f:
                 for chunk in chunker(json.loads(line)):
                     batch.append((make_text(chunk), chunk))
